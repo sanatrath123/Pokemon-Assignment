@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
@@ -50,13 +50,13 @@ setData((prev)=>(
 }
 
     useEffect(()=>{
-// GetUrl()
 GetData("bulbasaur")
+GetUrl()
     },[])
 
 
 
-    return {data , error}
+    return {url ,data, error}
 
 }
 

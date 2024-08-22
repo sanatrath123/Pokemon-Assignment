@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useAllpokemone from './hooks/useAllpokemon'
 import { PokemoneUrl } from './types/type'
 
 const App = () => {
   useAllpokemone()
-// const {data , error} = useAllpokemone()
+const {url , error} = useAllpokemone()
 
-// const [pokemoneUrl , setUrl] = useState<PokemoneUrl>()
+const [pokemoneUrl , setUrl] = useState<PokemoneUrl>()
 
-// useEffect(() => {
-//   if (data.length > 0) {
-//     setUrl(data);
-//   }
-// }, [data]);
+useEffect(() => {
+  if (url.length > 0) {
+    setUrl(url);
+  }
+}, [url]);
 
-// useEffect(()=>{console.log(pokemoneUrl)}, [pokemoneUrl])
+useEffect(()=>{console.log(pokemoneUrl)}, [pokemoneUrl])
 
-// if(error){
-//   return  <div>Api Fetch Nehi Hua</div>
-// }
+if(error){
+  return  <div>Api Fetch Nehi Hua</div>
+}
 
   return (
     <div>App</div>
