@@ -2,7 +2,6 @@
 export interface AllPokemon {
     name: string,
     url:string,
-    Data: object | undefined
 }
 
 export type PokemoneUrl = Array<AllPokemon>
@@ -15,20 +14,22 @@ type statsType = {
     
 interface TypesType {
         slot:number,
-        type: Array<AllPokemon>
+        type: AllPokemon
  }
+
 
 export interface pokemonData{
     id: number
-    forms : AllPokemon
+    forms : Array<AllPokemon>
     abilities: PokemoneUrl
-    species : PokemoneUrl
+    species : AllPokemon
     stats: Array<statsType>
     weight: number
     height:number
     types: Array<TypesType>
     imgShinny:string,
     imgDefalut:string
+    moves: Array<AllPokemon>
 }
 
 export type AllPokemonData = Array<pokemonData> 

@@ -1,20 +1,17 @@
-
-import { useEffect } from 'react'
+import { useEffect , useRef, useState } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
-import { PokemoneUrl } from '../types/type'
-import { AllPokemonData } from '../types/type'
-import { pokemonData } from '../types/type'
-
-const api = "https://pokeapi.co/api/v2/pokemon?offset=40&limit=20"
+import { pokemonData , AllPokemonData ,AllPokemon, PokemoneUrl } from '../types/type'
+const limit = 7
+const api = `https://pokeapi.co/api/v2/pokemon?offset=40&limit=${limit}`
 const infoApi = "https://pokeapi.co/api/v2/pokemon/"
+
 
 
 const useAllpokemone = () => {
 const [ error , setError ] = useState<boolean>(false)
 const [url , setUrl] = useState<PokemoneUrl>([])
 const [data , setData] = useState<AllPokemonData>([])
-    
+    const ApiCalled = useRef(false)
 const GetUrl = async ()=>{
 try {
     const urlData = await axios.get(api)
@@ -25,12 +22,13 @@ try {
 }
 }
 
-
 const GetData = async (name:string)=>{
+   try {
     const pokemonInfo = await axios.get(`${infoApi+name}`) 
-    const {abilities , species, stats,weight , id , forms ,height , sprites ,types } = pokemonInfo.data
+    const {abilities , species, stats,weight , id , forms ,height , sprites ,types ,moves } = pokemonInfo.data
     const imgDefalut = sprites.other.home.front_default
     const imgShinny = sprites.other.home.front_shiny
+    const move = moves.map((item:any)=>item.move)
 //assigning the value inside the new object
 const newobj:pokemonData = {
     id: id,
@@ -42,19 +40,32 @@ const newobj:pokemonData = {
     height:height,
     types: types,
     imgShinny:imgShinny,
-    imgDefalut:imgDefalut
+    imgDefalut:imgDefalut,
+    moves:move
 }
 setData((prev)=>(
     [...prev , newobj]
 ))
+   } catch (error) {
+    console.log("error in fetching indivisual data pf pokemon" , error)
+   }
 }
 
+//fetch all name and url 
     useEffect(()=>{
-GetData("bulbasaur")
 GetUrl()
     },[])
 
-
+//call for each pokimon
+useEffect(()=>{
+    console.log(ApiCalled.current)
+    if(url.length >=limit && !ApiCalled.current){
+       url.forEach((item:AllPokemon):void=>{
+        GetData(item.name)
+       })
+       ApiCalled.current= false
+    }
+},[url])
 
     return {url ,data, error}
 
