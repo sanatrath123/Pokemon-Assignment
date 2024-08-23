@@ -19,7 +19,7 @@ const Header = () => {
  onClick={()=>setSearchBar(false)}
  />
   </div>
-   :<><img src="public/logo.jpg" className='h-16 w-16 rounded-full' alt="" />
+   :<><img src="/logo.jpg" className='h-16 w-16 rounded-full' alt="" />
 
   <div className='flex w-4/12 justify-center md:gap-16 gap-4 items-center'>
   <li><IoHomeSharp size={45}/></li>
