@@ -1,7 +1,15 @@
 import { pokemonData } from "../types/type"
+import { useNavigate } from "react-router-dom"
+
 
 const Card = ({data}:{data:pokemonData}) => {
   console.log(data)
+
+  const naviagte = useNavigate()
+const handleNavigate = (name:string)=>{
+naviagte(`/indipage/${name}`)
+}
+
   return (
     <div key={data.id} className='w-[350px] h-[460px] bg-[rgb(163,248,240)] mt-5 rounded-3xl p-2 relative shadow-2xl hover:scale-105'>
       <img src={data.imgDefalut} className="w-full h-1/2 rounded-3xl" alt="" />
@@ -20,11 +28,12 @@ const Card = ({data}:{data:pokemonData}) => {
        <div className='flex gap-3 items-center'>
         <span className='text-green-900'>Type</span>
        <span className='w-5/12 h-6 border-[1px] rounded-2xl border-gray-800 p-1 flex items-center justify-center bg-indigo-200'>{data.types[0].type.name}</span>
-       <span className='w-5/12 h-6 border-[1px] rounded-2xl border-gray-800 p-1 flex items-center justify-center bg-indigo-200'>{data.types[1].type.name}</span>
+       {data.types?.[1]?.type.name && <span className='w-5/12 h-6 border-[1px] rounded-2xl border-gray-800 p-1 flex items-center justify-center bg-indigo-200'>{data.types?.[1]?.type.name}</span>}
        </div>
       </div>
 
-      <button className='bg-violet-500 text-gray-100 font-semibold py-2 px-3 rounded-2xl absolute left-1/2 -translate-x-1/2 bottom-1'>Know More</button>
+      <button className='bg-violet-500 text-gray-100 font-semibold py-2 px-3 rounded-2xl absolute left-1/2 -translate-x-1/2 bottom-1' 
+     onClick={()=>handleNavigate(data.forms[0].name)} >Know More</button>
     </div>
   )
 }

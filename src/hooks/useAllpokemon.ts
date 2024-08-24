@@ -1,7 +1,7 @@
 import { useEffect , useRef, useState } from 'react'
 import axios from 'axios'
 import { pokemonData , AllPokemonData ,AllPokemon, PokemoneUrl } from '../types/type'
-const limit = 7
+const limit = 30
 const api = `https://pokeapi.co/api/v2/pokemon?offset=40&limit=${limit}`
 const infoApi = "https://pokeapi.co/api/v2/pokemon/"
 

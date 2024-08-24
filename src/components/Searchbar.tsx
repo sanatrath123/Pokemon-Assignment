@@ -1,7 +1,8 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { AllPokemon, pokemonData  } from "../types/type";
+import { AllPokemon  } from "../types/type";
+import { useNavigate } from "react-router-dom";
 //import useSerachData from "../hooks/useSerachData";
 
 
@@ -29,6 +30,7 @@ const GetAllNames = async()=>{
     }
 }
 
+
 useEffect(()=>{
   GetAllNames()
 },[])
@@ -48,33 +50,10 @@ useEffect(()=>{
 },[input])
 
 
-//fetch the data of select pokimon
-const handleSelect = async(name:string)=>{
-try {
-  const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
-  const {abilities , species, stats,weight , id , forms ,height , sprites ,types ,moves } = res.data 
-  const imgDefalut = sprites.other.home.front_default
-  const imgShinny = sprites.other.home.front_shiny
-  const move = moves.map((item:any)=>item.move)
-//assigning the value inside the new object
-const newobj:pokemonData = {
-  id: id,
-  forms :forms ,
-  abilities: abilities,
-  species : species,
-  stats: stats,
-  weight: weight,
-  height:height,
-  types: types,
-  imgShinny:imgShinny,
-  imgDefalut:imgDefalut,
-  moves:move
-}
-console.log(newobj)
-
-} catch (error) {
-  console.log("error in fetch select search" , error)
-}
+//handle click on search recomended pokemon
+const naviagte = useNavigate()
+const handleSearchClick = (name:string)=>{
+naviagte(`/indipage/${name}`)
 }
 
   return (
@@ -88,7 +67,8 @@ console.log(newobj)
 {
   searchedData?.map((item ,i)=>(
 <li key={i} className="text-xl w-11/12 text-center font-bold h-12 rounded-xl p-2 border-b-[1px]  border-gray-900 mb-2 cursor-pointer"
-onClick={()=>handleSelect(item)}
+onClick={()=>handleSearchClick(item)}
+
 >{item}</li>
   ))
 }

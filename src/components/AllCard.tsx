@@ -1,26 +1,25 @@
-
 import { useEffect, useState } from 'react'
 import useAllpokemone from '../hooks/useAllpokemon'
 import { AllPokemonData, pokemonData } from '../types/type'
 
 import Card from './Card'
+import Loader from './Loading'
 
 const AllCard = () => {
 
   const {url ,data , error} = useAllpokemone()
-
-
-//const [pokemoneUrl , setUrl] = useState<PokemoneUrl>()
 const [AllpokemonData , setAllpokemonData] = useState<AllPokemonData>([])
 
 useEffect(() => {
-  console.log(data)
+ // console.log(data)
   if ( data.length >0 ) {
     // setUrl(url);
     setAllpokemonData(data)  
   }
 }, [url ,data,AllpokemonData]);
 
+//lading state
+if(data.length <=0) return <Loader/>
 
 if(error){
    return  ( <div className='w-full h-96 mt-9 flex items-center flex-col text-xl font-bold'>
